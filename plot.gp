@@ -30,7 +30,7 @@ set term png background "#330000" size 2560, 1080 \
 
  ##############################
 set autoscale xfix
- set output "/usr/share/nginx/htmlspeedtest.png"
+ set output "/usr/share/nginx/html/speedtest.png"
 set multiplot layout 2,1
 set title "Analysing speed WAN\nwith date curl -L -w google.com "  textcolor linestyle 1
 ####W

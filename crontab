@@ -1,2 +1,2 @@
-* * * * * bash /app/script.sh
+* * * * * /bin/bash /app/script.sh
 
