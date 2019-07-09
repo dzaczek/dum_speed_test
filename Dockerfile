@@ -9,12 +9,11 @@ RUN apt-get update && apt-get install -y \
   curl \
   gnuplot \
   bash    \
-  cron  \
   procps \
-  nginx  && rm -rf /var/lib/apt/lists/* 
+  nginx && echo "<img src=speedtest.png>" > /var/www/html/index.html  && rm -rf /var/lib/apt/lists/* 
 
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /var/www/html/
 #CMD cd /usr/share/nginx/html &&  nginx -g 'daemon off;'
 #CMD ["cron","-f"]
-CMD /app/start.sh
+CMD /bin/bash /app/start.sh
