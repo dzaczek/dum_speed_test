@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
   gnuplot \
   bash    \
   cron  \
-  nginx
+  nginx  && rm -rf /var/lib/apt/lists/* 
 
 WORKDIR /usr/share/nginx/html
 CMD cd /usr/share/nginx/html &&  nginx -g 'daemon off;' 	

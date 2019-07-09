@@ -15,7 +15,7 @@ URL=http://www.google.com;
 #         let COU=$(($COU+1))
         a=$(curl -L -w %{speed_download} -o/dev/null -s $URL);
         d=$(date +%d/%m/%y%t%H:%M:%S)
-        echo $d";"$a>> /usr/share/nginx/htmlbps.dat
+        echo $d";"$a>> /usr/share/nginx/html/bps.dat
  #       sleep ${pause}
 #done
 

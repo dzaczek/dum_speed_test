@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/gnuplot 
 
 #timeex=1
 #command -v curl >/dev/null 2>&1 || { echo >&2 "I require foo but it's not installed.  Aborting."; exit 1; }
@@ -12,13 +12,13 @@
 #	 let COU=$(($COU+1))
 #	a=$(curl -L -w %{speed_download} -o/dev/null -s $URL);
 #	d=$(date +%d/%m/%y%t%H:%M:%S)
-#	echo $d";"$a>>bps.sh
+#	echo $d";"$a>>/usr/share/nginx/html/bps.dat
 #	sleep ${pause}
 #done
 
 #intime(COL) = strptime("%H:%M:%S",strcol(COL))
 set datafile separator ";"
-stats 'bps.sh' using 2
+stats '/usr/share/nginx/html/bps.dat' using 2
 
 set term png background "#330000" size 2560, 1080 \
 # font "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf,10"
@@ -30,11 +30,11 @@ set term png background "#330000" size 2560, 1080 \
 
  ##############################
 set autoscale xfix
- set output "/var/www/speedtest.png"
+ set output "/usr/share/nginx/htmlspeedtest.png"
 set multiplot layout 2,1
 set title "Analysing speed WAN\nwith date curl -L -w google.com "  textcolor linestyle 1
 ####W
- stats 'bps.sh' using 2 prefix "A"
+ stats '/usr/share/nginx/html/bps.dat' using 2 prefix "A"
 
 set xdata time
 #set style fill solid 1.0
@@ -112,7 +112,7 @@ set autoscale xfix
 set label 4 'set style line 4 lt 2 lc rgb "#90EE90" lw 2'  at -0.4, -0.55 tc rgb "#90EE90"
 set label 5 'set style line 5 lt 2 lc rgb "#009E60" lw 2'  at -0.4, -0.55 tc rgb "white"
 ##################################
-plot '/var/www/bps.dat'  using   1:2 t 'bytes/s' w points, '/var/www/bps.dat' using 1:(avg_n($2)) w l lc rgb "red" lw 2 title "avg 60 probs(10 minutes)", A_mean  ls 4  title "  Mean",  A_median  ls 5  title "  Median"
+plot '/usr/share/nginx/html/bps.dat'  using   1:2 t 'bytes/s' w points, '/usr/share/nginx/html/bps.dat' using 1:(avg_n($2)) w l lc rgb "red" lw 2 title "avg 60 probs(10 minutes)", A_mean  ls 4  title "  Mean",  A_median  ls 5  title "  Median"
 
 
 
@@ -183,7 +183,7 @@ shift_nw(tt) = @shiftw
 
 
 #######################
-plot '/var/www/bps.dat' using 1:(avg_n($2)) w  dots lc rgb "red" lw 2 title "avg 6 probs(1 minutes)", '/var/www/bps.dat' using 1:(avg_nw($2)) w  dots lc rgb "green" lw 2 title "avg 360 probs(1 hour)"
+plot '/usr/share/nginx/html/bps.dat' using 1:(avg_n($2)) w  dots lc rgb "red" lw 2 title "avg 6 probs(1 minutes)", '/usr/share/nginx/html/bps.dat' using 1:(avg_nw($2)) w  dots lc rgb "green" lw 2 title "avg 360 probs(1 hour)"
 
 #set title "Histogram"#
 #set style data histogram
@@ -191,6 +191,6 @@ plot '/var/www/bps.dat' using 1:(avg_n($2)) w  dots lc rgb "red" lw 2 title "avg
 #binwidth=40
 #bin(x,width)=width*floor(x/width)
 #set datafile separator ";"
-#plot '/var/www/bps.dat' using 2 smooth freq with boxes
+#plot '/usr/share/nginx/html/bps.dat' using 2 smooth freq with boxes
 unset multiplot
 reset
